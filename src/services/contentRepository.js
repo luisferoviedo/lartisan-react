@@ -1,8 +1,7 @@
 import { catalogo, findProductoBySlugGlobal } from '../data/catalogo'
 import { recetas } from '../data/recetas'
+import { sanityAdapter } from './sanityAdapter'
 
-// Adapter por defecto en memoria.
-// Este contrato permite migrar a API/Supabase sin tocar UI ni ViewModels.
 const staticAdapter = {
   async getCatalogo() {
     return catalogo
@@ -15,7 +14,8 @@ const staticAdapter = {
   },
 }
 
-let adapter = staticAdapter
+const useSanity = Boolean(import.meta.env.VITE_SANITY_PROJECT_ID)
+let adapter = useSanity ? sanityAdapter : staticAdapter
 
 // Permite inyectar un adapter externo (ej: backend real).
 export function setContentAdapter(nextAdapter) {

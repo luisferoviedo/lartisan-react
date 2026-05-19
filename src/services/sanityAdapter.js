@@ -1,4 +1,4 @@
-import { sanityClient } from './sanityClient'
+import { getSanityClient } from './sanityClient'
 
 // GROQ queries — misma forma de datos que staticAdapter
 const CATALOGO_QUERY = `*[_type == "categoria"] | order(orden asc) {
@@ -80,14 +80,14 @@ const RECETAS_QUERY = `*[_type == "receta"] | order(orden asc) {
 
 export const sanityAdapter = {
   async getCatalogo() {
-    return sanityClient.fetch(CATALOGO_QUERY)
+    return getSanityClient().fetch(CATALOGO_QUERY)
   },
 
   async getProductoBySlug(slug) {
-    return sanityClient.fetch(PRODUCTO_QUERY, { slug }) ?? null
+    return getSanityClient().fetch(PRODUCTO_QUERY, { slug }) ?? null
   },
 
   async getRecetas() {
-    return sanityClient.fetch(RECETAS_QUERY)
+    return getSanityClient().fetch(RECETAS_QUERY)
   },
 }

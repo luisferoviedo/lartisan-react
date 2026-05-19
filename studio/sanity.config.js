@@ -7,8 +7,7 @@ export default defineConfig({
   name: 'lartisan',
   title: "L'Artisan — Admin",
 
-  // Reemplazar con tu Project ID de sanity.io/manage
-  projectId: 'REEMPLAZAR_CON_PROJECT_ID',
+  projectId: 'zaggnqkb',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],

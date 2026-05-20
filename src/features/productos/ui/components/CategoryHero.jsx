@@ -1,16 +1,18 @@
+import ImageWithFallback from '../../../../components/ImageWithFallback'
+
 export default function CategoryHero({ title, subtitle, cover, eager, sizes, highlights = [] }) {
   return (
     <div className="cat-hero">
       {cover
         ? (
-          <img
+          <ImageWithFallback
             className="cat-hero-img"
             src={cover}
             alt={title}
             loading={eager ? 'eager' : 'lazy'}
             fetchPriority={eager ? 'high' : 'auto'}
             decoding="async"
-            sizes={sizes}
+            sizes={sizes || '(max-width: 980px) 100vw, 1100px'}
             width="1600"
             height="900"
           />

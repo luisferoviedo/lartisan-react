@@ -3,6 +3,7 @@ import { wa } from '../../../../utils/waLink'
 import { prefetchIntentProps } from '../../../../utils/prefetchRoutes'
 import { buildProductCardWhatsAppMessage } from '../../application/whatsappBuilders'
 import { formatPrice } from '../../domain/formatters'
+import ImageWithFallback from '../../../../components/ImageWithFallback'
 
 export default function ProductCard({ product, categoria, secTitulo = null, mobileCategoryLabel = null }) {
   if (!product) return null
@@ -18,12 +19,13 @@ export default function ProductCard({ product, categoria, secTitulo = null, mobi
       <div className="product-card-media">
         {product.imagen
           ? (
-            <img
+            <ImageWithFallback
               className="product-card-image"
               src={product.imagen}
               alt={product.nombre}
               loading="lazy"
               decoding="async"
+              sizes="(max-width: 600px) 100vw, (max-width: 980px) 50vw, 400px"
               width="1200"
               height="900"
             />

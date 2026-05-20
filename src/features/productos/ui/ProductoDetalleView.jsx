@@ -1,3 +1,4 @@
+import './products.css'
 import { Link, useParams } from 'react-router-dom'
 import { prefetchIntentProps } from '../../../utils/prefetchRoutes'
 import { useProductoDetalleViewModel } from '../application/useProductoDetalleViewModel'

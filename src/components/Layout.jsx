@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { INSTAGRAM_URL } from "../features/home/domain/constants";
 import { useJsonLd } from "../hooks/useJsonLd";
@@ -8,6 +8,22 @@ import { wa } from "../utils/waLink";
 
 export default function Layout() {
   const siteUrl = getSiteUrl();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = () => setMenuOpen(false);
+
+  useEffect(() => {
+    const onKey = (e) => e.key === "Escape" && setMenuOpen(false);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   const brandSchema = useMemo(
     () => ({
       "@context": "https://schema.org",
@@ -44,7 +60,7 @@ export default function Layout() {
       </a>
       <header className="header-glass">
         <div className="container site-header">
-          <Link className="site-brand" to="/">
+          <Link className="site-brand" to="/" onClick={closeMenu}>
             <img
               className="site-brand-logo"
               src="/brand/logo.webp"
@@ -58,10 +74,33 @@ export default function Layout() {
             <span className="site-brand-text">L'Artisan</span>
           </Link>
 
-          <nav className="site-nav" aria-label="Navegación principal">
+          <button
+            className={`nav-toggle${menuOpen ? " is-open" : ""}`}
+            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+
+          {menuOpen && (
+            <div
+              className="nav-backdrop"
+              onClick={closeMenu}
+              aria-hidden="true"
+            />
+          )}
+
+          <nav
+            className={`site-nav${menuOpen ? " is-open" : ""}`}
+            aria-label="Navegación principal"
+          >
             <NavLink
               to="/productos"
               className="nav-link"
+              onClick={closeMenu}
               {...prefetchIntentProps("/productos")}
             >
               Productos
@@ -69,6 +108,7 @@ export default function Layout() {
             <NavLink
               to="/recetas"
               className="nav-link"
+              onClick={closeMenu}
               {...prefetchIntentProps("/recetas")}
             >
               Recetas & Tips
@@ -76,6 +116,7 @@ export default function Layout() {
             <NavLink
               to="/nosotros"
               className="nav-link"
+              onClick={closeMenu}
               {...prefetchIntentProps("/nosotros")}
             >
               Nosotros
@@ -83,6 +124,7 @@ export default function Layout() {
             <NavLink
               to="/contacto"
               className="nav-link"
+              onClick={closeMenu}
               {...prefetchIntentProps("/contacto")}
             >
               Contacto
@@ -92,6 +134,7 @@ export default function Layout() {
               href={wa("Hola L'Artisan, quiero hacer un pedido")}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={closeMenu}
             >
               WhatsApp
             </a>

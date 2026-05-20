@@ -1,3 +1,4 @@
+import './products.css'
 import { useProductosViewModel } from '../application/useProductosViewModel'
 import { PRODUCTS_PAGE_HIGHLIGHTS } from '../domain/constants'
 import ProductsSidebar from './components/ProductsSidebar'

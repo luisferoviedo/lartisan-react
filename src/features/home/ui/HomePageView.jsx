@@ -1,3 +1,4 @@
+import './home.css'
 import { useHomeViewModel } from '../application/useHomeViewModel'
 import HomeHeroSection from './components/HomeHeroSection'
 import HomeExploreSection from './components/HomeExploreSection'

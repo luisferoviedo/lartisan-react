@@ -14,4 +14,13 @@ function injectSiteUrlPlugin(mode) {
 
 export default defineConfig(({ mode }) => ({
   plugins: [react(), injectSiteUrlPlugin(mode)],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+        },
+      },
+    },
+  },
 }))

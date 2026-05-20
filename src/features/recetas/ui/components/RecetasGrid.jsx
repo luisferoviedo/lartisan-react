@@ -14,6 +14,18 @@ export default function RecetasGrid({ recetas, loading }) {
       {recetas.map((receta) => (
         <article key={receta.slug} className="card-base card-panel recipes-card card-interactive">
           <div className="recipes-card-head">
+            {receta.productLabel && (
+              <Link
+                className="recipes-product-tag"
+                to={receta.productHref}
+                {...prefetchIntentProps('/productos')}
+                aria-label={`Ir al producto: ${receta.productLabel}`}
+              >
+                <span className="recipes-product-tag-dot" aria-hidden="true" />
+                {receta.productLabel}
+                <span className="recipes-product-tag-arrow" aria-hidden="true">→</span>
+              </Link>
+            )}
             <h3 className="recipes-card-title">{receta.title}</h3>
             {receta.description ? (
               <p className="p p-reset recipes-card-description">{receta.description}</p>
@@ -56,7 +68,7 @@ export default function RecetasGrid({ recetas, loading }) {
 
           <div className="recipes-card-footer">
             <Link
-              className="btn btn-secondary recipe-cta"
+              className="btn btn-primary recipe-cta"
               to={receta.ctaTo}
               {...prefetchIntentProps('/productos')}
             >
